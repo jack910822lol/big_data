@@ -18,6 +18,7 @@ stu_colle.insert_one({"stu_id":"s2", "stu_name": "Rick"})
 stu_colle.insert_one({"stu_id":"s3", "stu_name": "Susanna"})
 stu_colle.insert_one({"stu_id":"s4", "stu_name": "Jennifer"})
 grade_colle = db["grade"]
+grade_colle.delete_many({})
 grade_colle.insert_one({"stu_id":"s1", "class_id":"c1", "grade":2})
 grade_colle.insert_one({"stu_id":"s2", "class_id":"c1", "grade":99})
 grade_colle.insert_one({"stu_id":"s3", "class_id":"c1", "grade":65})
@@ -31,6 +32,11 @@ grade_colle.insert_one({"stu_id":"s1", "class_id":"c4", "grade":94})
 grade_colle.insert_one({"stu_id":"s2", "class_id":"c4", "grade":63})
 grade_colle.insert_one({"stu_id":"s3", "class_id":"c4", "grade":75})
 grade_colle.insert_one({"stu_id":"s4", "class_id":"c4", "grade":20})
-#list students who took the course named ”Home fusion made easy”
-print("list students who took the course named ”Home fusion made easy”")
-pprint.pprint(list(stu_colle.aggregate([
+print("students who took the course named ”Home fusion made easy”")
+for x in grade_colle.find({"class_id":"c2"}):
+    list_of_stu_id = x["stu_id"]
+    for y in stu_colle.find({"stu_id":list_of_stu_id}): 
+        print(y["stu_name"])
+print("Jennifer’s grade on the course named ”Learn SQL for fun and profit.”")
+for x in grade_colle.find({"stu_id":"s4", "class_id":"c4"}):
+    print(x["grade"])
